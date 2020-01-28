@@ -21,8 +21,9 @@ server.use(session({
   },
   resave: false,
   // if we don't explicitly do something with the session
-  // don't respond with a Set-Cookie -> good GDPR (false)
-  saveUninitialized: false
+  // like adding extra properties (isLoggedIn for example)
+  // don't respond with a Set-Cookie of "monkey=someIdSession"
+  saveUninitialized: false // good GDPR
 }));
 
 server.use('/api/auth', authRouter);
