@@ -15,7 +15,12 @@ server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 
 server.get('/', (req, res) => {
-  res.json({ api: 'up' });
+  if (req.headers.cookie) {
+    res.json('welcome back!!')
+  } else {
+    res.cookie('foo', 'bar');
+    res.json('nice to meet you! Here is a cookie')
+  }
 });
 
 module.exports = server;
