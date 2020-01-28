@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const session = require('express-session');
 
 const authRouter = require('../auth/auth-router.js');
 const usersRouter = require('../users/users-router.js');
@@ -10,17 +11,25 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+server.use(session({
+  name: 'monkey',          // session id
+  secret: 'keep it secret',
+  cookie: {
+    maxAge: 1000 * 60,
+    secure: false,         // https only
+    httpOnly: false,       // can we get at the cookie from JS?
+  },
+  resave: false,
+  // if we don't explicitly do something with the session
+  // don't respond with a Set-Cookie -> good GDPR (false)
+  saveUninitialized: false
+}));
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 
 server.get('/', (req, res) => {
-  if (req.headers.cookie) {
-    res.json('welcome back!!')
-  } else {
-    res.cookie('foo', 'bar');
-    res.json('nice to meet you! Here is a cookie')
-  }
+  res.json('hello')
 });
 
 module.exports = server;
