@@ -22,11 +22,12 @@ router.post('/login', (req, res) => {
   let { username, password } = req.body;
 
   // thanks to express-session
-  // when we hit this enpdoint
+  // when we hit this enpdoint (or any endpoint)
   // a session gets created on the server
   // if credentials valid, as per bcrypt
   // we will add something to the session object
   // and send back a welcome
+  // and set a Cookie
 
   Users.findBy({ username })
     .first()
