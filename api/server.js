@@ -29,7 +29,12 @@ server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 
 server.get('/', (req, res) => {
-  res.json('hello')
+  if (req.session.seenYouBefore) {
+    res.json('welcome back')
+  } else {
+    req.session.seenYouBefore = true;
+    res.json('nice to meed you! here is a cookie')
+  }
 });
 
 module.exports = server;
