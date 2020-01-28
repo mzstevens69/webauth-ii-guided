@@ -30,6 +30,9 @@ server.use('/api/users', usersRouter);
 
 server.get('/', (req, res) => {
   if (req.session.seenYouBefore) {
+    // unless we "do something" with the session
+    // like adding a "seenYouBefore" to the session object
+    // if saveUninitialized=false NO COOKIE GETS SENT
     res.json('welcome back')
   } else {
     req.session.seenYouBefore = true;
