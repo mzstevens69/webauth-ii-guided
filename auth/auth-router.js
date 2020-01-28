@@ -21,13 +21,15 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
 
+  // imagine this is the first visit to http://localhost:5000
   // thanks to express-session
-  // when we hit this enpdoint (or any endpoint)
-  // a session gets created on the server
+  // a session object gets created on the server automatically
   // if credentials valid, as per bcrypt
-  // we will add something to the session object
-  // and send back a welcome
-  // and set a Cookie
+  // we will add an extra property to the session object
+  // and send back a welcome message
+  // and set a Cookie with the session id
+  // so the server can recognize in the future
+  // that this user has an existing session
 
   Users.findBy({ username })
     .first()
